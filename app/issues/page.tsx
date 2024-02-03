@@ -7,7 +7,7 @@ import delay from 'delay';
 import IssuesToolbar from './IssuesToolbar';
 
 const IssuesPage = async () => {
-  const issues = await prisma?.issue.findMany();
+  const issues = await prisma?.issue.findMany({});
   await delay(2000);
   return (
     <div>
