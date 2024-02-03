@@ -36,7 +36,11 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
     async (data: IssueFormData): Promise<void> => {
       setLoading(true);
       try {
-        await axios.post('/api/issues', data);
+        if (issue) {
+          await axios.patch('/api/issues/' + issue.id, data);
+        } else {
+          await axios.post('/api/issues', data);
+        }
         router.push('/issues');
         setLoading(false);
       } catch (err) {
@@ -72,7 +76,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
         />
         <ErrorMessage>{errors.description?.message}</ErrorMessage>
         <Button disabled={loading}>
-          Submit New Issue{loading && <Spinner />}
+          {issue ? 'Update' : 'Submit New'} Issue{loading && <Spinner />}
         </Button>
       </form>
     </div>
