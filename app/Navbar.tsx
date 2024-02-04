@@ -13,6 +13,7 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { AiFillBug } from 'react-icons/ai';
+import { Skeleton } from '@/app/components';
 
 const Navbar = () => {
   return (
@@ -35,7 +36,7 @@ const Navbar = () => {
 const UserMenu = () => {
   const { status, data: session } = useSession();
 
-  if (status === 'loading') return null;
+  if (status === 'loading') return <Skeleton width="3rem" />;
 
   if (status === 'unauthenticated')
     return (
@@ -49,7 +50,7 @@ const UserMenu = () => {
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <Avatar
-            size="3"
+            size="2"
             radius="full"
             src={session!.user!.image!}
             fallback="?"
