@@ -38,7 +38,7 @@ const IssueForm = ({ issue }: { issue?: Issue }) => {
           await axios.post('/api/issues', data);
         }
         setLoading(false);
-        router.push('/issues');
+        router.push('/issues/list');
         router.refresh();
       } catch (err) {
         setLoading(false);
