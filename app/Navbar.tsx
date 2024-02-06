@@ -76,7 +76,7 @@ const NavLinks = () => {
   const links: NavbarLink[] = [
     {
       label: 'Dashboard',
-      href: '/dashboard',
+      href: '/',
     },
     {
       label: 'Issues',
