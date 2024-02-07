@@ -1,15 +1,17 @@
 import { IssueStatusBadge } from '@/app/components';
 import { Issue, Status } from '@prisma/client';
-import { ArrowUpIcon } from '@radix-ui/react-icons';
+import { ArrowDownIcon, ArrowUpIcon } from '@radix-ui/react-icons';
 import { Table } from '@radix-ui/themes';
 import Link from 'next/link';
 import React from 'react';
 import NextLink from 'next/link';
 
+export type SortOrder = 'asc' | 'desc';
 export interface IssueQuery {
   status: Status;
   orderBy: keyof Issue;
   page: string;
+  order: SortOrder | undefined;
 }
 
 interface Props {
@@ -18,6 +20,14 @@ interface Props {
 }
 
 const IssueTable = ({ searchParams, issues }: Props) => {
+  const getCurrentOrder = (): SortOrder | undefined => {
+    const order = searchParams.order;
+    if (order) {
+      if (order === 'desc') return undefined;
+      return 'desc';
+    }
+    return 'asc';
+  };
   return (
     <Table.Root variant="surface">
       <Table.Header>
@@ -26,14 +36,23 @@ const IssueTable = ({ searchParams, issues }: Props) => {
             <Table.ColumnHeaderCell key={i.value} className={i.className}>
               <NextLink
                 href={{
-                  query: { ...searchParams, orderBy: i.value },
+                  query: {
+                    ...searchParams,
+                    orderBy: i.value,
+                    order: getCurrentOrder(),
+                  },
                 }}
               >
                 {i.label}
               </NextLink>
-              {i.value === searchParams.orderBy && (
-                <ArrowUpIcon className="inline" />
-              )}
+              {i.value === searchParams.orderBy &&
+                searchParams.order === 'asc' && (
+                  <ArrowUpIcon className="inline" />
+                )}
+              {i.value === searchParams.orderBy &&
+                searchParams.order === 'desc' && (
+                  <ArrowDownIcon className="inline" />
+                )}
             </Table.ColumnHeaderCell>
           ))}
         </Table.Row>

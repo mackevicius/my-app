@@ -19,7 +19,7 @@ const IssuesPage = async ({ searchParams }: SearchParams) => {
 
   const orderBy = columnNames.map((name) => name).includes(searchParams.orderBy)
     ? {
-        [searchParams.orderBy]: 'asc',
+        [searchParams.orderBy]: searchParams.order,
       }
     : undefined;
 
