@@ -1,6 +1,9 @@
 
 Issue tracking website built with Next.js 14 + React.js + Tailwind + Prisma + RadixUI
 
+Deployed version: https://issue-tracking-website.vercel.app/
+
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
